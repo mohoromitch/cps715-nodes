@@ -1,6 +1,9 @@
 package com.mohorovich.mitchell;
 
 import com.mohorovich.mitchell.node.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 /**
  *  +------+        +------------+     +------+
@@ -19,11 +22,16 @@ public class Main {
 
 	private final static String HTTP_MODE = "http";
 	private final static String COAP_MODE = "coap";
+	private static final Logger logger = LogManager.getLogger(Main.class);
+
 
 	public static void main(String[] args) {
+		logger.traceEntry();
 		try {
+			logger.trace("Creating node from arguments");
 			createNodeFrom(args);
 		} catch (Exception e) {
+			logger.error("Node could not be made. Error thrown.");
 			e.printStackTrace();
 			System.exit(1);
 		}
@@ -33,10 +41,10 @@ public class Main {
 		String mode = args[0].toLowerCase();
 		switch (mode) {
 			case HTTP_MODE:
-				System.out.println(HTTP_MODE);
+				logger.trace("HTTP mode passed.");
 				break;
 			case COAP_MODE:
-				System.out.println(COAP_MODE);
+				logger.trace("CoAP mode passed.");
 				break;
 			default:
 				throw new Exception("No such recognized mode: " + mode);
