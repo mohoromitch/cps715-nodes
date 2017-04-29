@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="cps715-nodes_main" target="1.8" />
       <module name="cps715-nodes_test" target="1.8" />
+      <module name="cps716-nodes_main" target="1.8" />
+      <module name="cps716-nodes_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

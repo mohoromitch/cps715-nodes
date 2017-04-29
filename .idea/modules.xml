@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cps715-nodes.iml" filepath="$PROJECT_DIR$/.idea/modules/cps715-nodes.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cps715-nodes_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cps715-nodes_main.iml" group="cps715-nodes" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cps715-nodes_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cps715-nodes_test.iml" group="cps715-nodes" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cps716-nodes.iml" filepath="$PROJECT_DIR$/.idea/modules/cps716-nodes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cps716-nodes_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cps716-nodes_main.iml" group="cps716-nodes" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cps716-nodes_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cps716-nodes_test.iml" group="cps716-nodes" />
     </modules>
   </component>
 </project>
