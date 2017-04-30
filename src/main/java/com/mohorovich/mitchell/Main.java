@@ -5,10 +5,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 /**
- *  +------+        +------------+     +------+
- *  | HTTP +---1---->  HTTP/CoAP +--2--> CoAP |
- *  | Node <---4----+  Proxy     <--3--+ Node |
- *  +------+        +------------+     +------+
  *
  *  This application contains code to build a topology of nodes to test the performance of the concurrent HTTP/CoAP
  *  proxy for CPS716 - Computer Networks II
@@ -38,6 +34,12 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Given arguments, returns the node that this application will run.
+	 * @param args The program arguments passed in.
+	 * @return A Node corresponding to the given arguments.
+	 * @throws Exception If the arguments passed in are invalid.
+	 */
 	private static Node createNodeFrom(String[] args) throws Exception {
 		if(args.length == 0) {
 			logger.error("No mode flag provided.");

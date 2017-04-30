@@ -1,11 +1,9 @@
 package com.mohorovich.mitchell.node;
 
-import javafx.concurrent.Task;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
@@ -15,7 +13,16 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This node is the HTTP dummy node of the network topology,
- * it sends simple GET request to an IP with a URI at a constant rate.
+ * it sends simple empty GET request to a URL.
+ *
+ * In the diagram below, the destination URL corresponds to the HTTP/CoAP proxy.
+ * The behavior is labelled by order of execution.
+ *
+ *  +------+        +------------+     +------+
+ *  | HTTP +---1---->  HTTP/CoAP +--2--> CoAP |
+ *  | Node <---4----+  Proxy     <--3--+ Node |
+ *  +------+        +------------+     +------+
+ *
  */
 public class HTTPClient implements Node {
 
@@ -33,7 +40,7 @@ public class HTTPClient implements Node {
 	}
 
 	/**
-	 * Start sending requests
+	 * Start sending requests to the given URL, at the set rate from the arguments.
 	 */
 	@Override
 	public void start() {
@@ -52,6 +59,10 @@ public class HTTPClient implements Node {
 		}, 0, 1000/this.ratePerSecond, TimeUnit.MILLISECONDS);
 	}
 
+	/**
+	 * Sends dummy request to URL assigned to HTTPClient.
+	 * Passed as thread Runnable in start().
+	 */
 	private void sendRequest() {
 		URL url;
 		try {
