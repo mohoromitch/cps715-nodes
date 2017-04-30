@@ -1,8 +1,11 @@
 package com.mohorovich.mitchell;
 
 import com.mohorovich.mitchell.node.*;
+import com.sun.istack.internal.NotNull;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+
+import java.util.Objects;
 
 /**
  *
@@ -17,6 +20,8 @@ public class Main {
 
 	private final static String HTTP_MODE = "http";
 	private final static String COAP_MODE = "coap";
+	private final static String SERVER_MODE = "server";
+	private final static String CLIENT_MODE = "client";
 	private static final Logger logger = LogManager.getLogger(Main.class);
 
 
@@ -24,7 +29,7 @@ public class Main {
 		logger.traceEntry();
 		Node node;
 		try {
-			logger.trace("Creating node from arguments");
+			logger.trace("Creating Node from arguments");
 			node = createNodeFrom(args);
 			node.start();
 		} catch (Exception e) {
@@ -40,22 +45,23 @@ public class Main {
 	 * @return A Node corresponding to the given arguments.
 	 * @throws Exception If the arguments passed in are invalid.
 	 */
+	@NotNull
 	private static Node createNodeFrom(String[] args) throws Exception {
-		if(args.length == 0) {
-			logger.error("No mode flag provided.");
-			throw new Exception("No mode flag provided");
+		if(args.length <= 1) {
+			logger.error("Protocol and mode flags required.");
+			throw new Exception("Not enough arguments provided.");
 		}
-		String mode = args[0].toLowerCase();
-		switch (mode) {
+		String protocol = args[0].toLowerCase();
+		String mode = args[1].toLowerCase();
+		switch (protocol) {
 			case HTTP_MODE:
-				logger.trace("HTTP mode passed.");
+				logger.trace("HTTP protocol passed.");
 				return new HTTPClient(args);
 			case COAP_MODE:
-				logger.trace("CoAP mode passed.");
-				break;
+				logger.trace("CoAP protocol passed");
+				return (mode.equals(CLIENT_MODE)) ? new CoAPClient(args) : new CoAPServer(args);
 			default:
-				throw new Exception("No such recognized mode: " + mode);
+				throw new Exception("No such recognized mode: " + protocol);
 		}
-		return null;
 	}
 }

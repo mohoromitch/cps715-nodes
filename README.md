@@ -7,7 +7,7 @@ Repository to hold the HTTP and CoAP dummy nodes that send and receive test requ
 ## HTTP Client
 
 ```
-java -jar node.jar http 10 localhost:8000/test
+java -jar node.jar http client 10 localhost:8000/test
 ```
 
 This will create an HTTP node that sends 10 requests a second to localhost on port 8000 for the resource `/test`.
@@ -23,13 +23,21 @@ If you would like to test the HTTP rate, run:
 
 Which will listen on localhost:8000 for requests.
 
+## CoAP Client
+
+```
+java -jar node.jar coap client 10 localhost:5683/test
+```
+
+This will create a CoAP client node that sends 10 request a second to localhost on port 5683 (default port for californium) for the resource `/test`.
+
 ## CoAP Server
 
 ```
-java -jar node.jar coap 
+java -jar node.jar coap server
 ```
 
-This will run a node that responds to the CoAP requests it gets.
+This will create a CoAP server node.
 For this simulation any URI it receives it will simply respond with the same data.
 
 # Configuration
