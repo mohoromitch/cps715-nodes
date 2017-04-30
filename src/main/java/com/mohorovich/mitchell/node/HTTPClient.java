@@ -73,14 +73,18 @@ public class HTTPClient implements Node {
 	 */
 	private void sendRequest() {
 		URL url;
+		long connectionTime = 0;
 		try {
 			url = new URL(this.url);
-			url.openStream();
+			long startTime = System.nanoTime();
+			url.openConnection();
+			connectionTime = System.nanoTime() - startTime;
 		} catch (MalformedURLException e) {
 			logger.error("Malformed URL: " + this.url);
+			return;
 		} catch (IOException e) {
-			logger.error("Failed opening stream from url: " + this.url);
+			logger.error(String.format("Failed to make connection to: %s", this.url));
 		}
-		logger.trace("Successful request sent to " + this.url);
+		logger.trace(String.format("Successful request sent to %s in %s ns", this.url, connectionTime));
 	}
 }
