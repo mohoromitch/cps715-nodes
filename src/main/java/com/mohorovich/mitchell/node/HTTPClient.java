@@ -54,17 +54,7 @@ public class HTTPClient implements Node {
 	public void start() {
 		final ExecutorService es = Executors.newCachedThreadPool();
 		ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-		ses.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				es.submit(new Runnable() {
-					@Override
-					public void run() {
-						sendRequest();
-					}
-				});
-			}
-		}, 0, 1000/this.ratePerSecond, TimeUnit.MILLISECONDS);
+		ses.scheduleAtFixedRate(() -> es.submit(() -> sendRequest()), 0, 1000/this.ratePerSecond, TimeUnit.MILLISECONDS);
 	}
 
 	/**
