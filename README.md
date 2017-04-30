@@ -13,12 +13,10 @@ The diagram above shows the topology of the simulation.
 HTTP nodes and CoAP nodes are created to test guage the performance of the HTTP/CoAP proxy in the centre. 
 
 The numbers on the arrows show the order of the actions being made, HTTP -> Proxy, proxy repackages the response into a CoAP response, then forwards it to the CoAP node.
-
-The CoAP node then responds, and the proxy handles that and repackes that into a HTTP response to the original HTTP node.
-
+The CoAP node then responds, and the proxy handles that and repacks that into a HTTP response to the original HTTP node.
 The simulation uses basic GET requests for HTTP, and NON's for CoAP.
 
-Using log4j, timings for the respones are logged, and will be processed to determine performance of the proxy.
+Using log4j, timings for the responses are logged, and will be processed to determine performance of the proxy.
 
 # Running
 
