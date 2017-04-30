@@ -2,6 +2,22 @@
 
 Repository to hold the HTTP and CoAP dummy nodes that send and receive test requests for the simulation.
 
+```
+  +------+        +------------+     +------+
+  | HTTP +---1---->  HTTP/CoAP +--2--> CoAP |
+  | Node <---4----+  Proxy     <--3--+ Node |
+  +------+        +------------+     +------+
+```
+
+The diagram above shows the topology of the simulation.
+HTTP nodes and CoAP nodes are created to test guage the performance of the HTTP/CoAP proxy in the centre. 
+
+The numbers on the arrows show the order of the actions being made, HTTP -> Proxy, proxy repackages the response into a CoAP response, then forwards it to the CoAP node.
+
+The CoAP node then responds, and the proxy handles that and repackes that into a HTTP response to the original HTTP node.
+
+The simulation uses basic GET requests for HTTP, and NON's for CoAP.
+
 # Running
 
 ## HTTP Client
@@ -11,17 +27,12 @@ java -jar node.jar http client 10 localhost:8000/test
 ```
 
 This will create an HTTP node that sends 10 requests a second to localhost on port 8000 for the resource `/test`.
-When the proxy receives the request, it forwards the repackaged request to the IP of the node mapped to that URI.
-
-So, when the proxy receives node1.net/status, it reads node1.net which is mapped to a CoAP node, then sends the /status request in that CoAP request.
-Note, NON CoAP requests are made in the simulation, since we are measuring concurrency performance not link layer and packets will not be dropped in this simulation.
-The reliability of 802.15.4 makes NON requests feasible in the real world, so this setup is reasonable.
 
 If you would like to test the HTTP rate, run:
 
 `./http_serve.py`
 
-Which will listen on localhost:8000 for requests.
+Which is python script that will listen on localhost:8000 for requests.
 
 ## CoAP Client
 
@@ -39,8 +50,10 @@ java -jar node.jar coap server
 
 This will create a CoAP server node.
 For this simulation any URI it receives it will simply respond with the same data.
+The default port for Californium is 5683, so that port is used by default. 
+After the initial run, a Californium.properties file will be made which can be modified for further configuration.
 
 # Configuration
 
-No configuration file is needed for this setup, a Makefile is provided that contains example nodes with arguments supplied for a test topology.
+No configuration is necessary for the nodes, other than the arguments passed to it.
 
