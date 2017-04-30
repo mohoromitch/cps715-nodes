@@ -18,6 +18,8 @@ The CoAP node then responds, and the proxy handles that and repackes that into a
 
 The simulation uses basic GET requests for HTTP, and NON's for CoAP.
 
+Using log4j, timings for the respones are logged, and will be processed to determine performance of the proxy.
+
 # Running
 
 ## HTTP Client
