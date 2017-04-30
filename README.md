@@ -17,6 +17,12 @@ So, when the proxy receives node1.net/status, it reads node1.net which is mapped
 Note, NON CoAP requests are made in the simulation, since we are measuring concurrency performance not link layer and packets will not be dropped in this simulation.
 The reliability of 802.15.4 makes NON requests feasible in the real world, so this setup is reasonable.
 
+If you would like to test the HTTP rate, run:
+
+`./http_serve.py`
+
+Which will listen on localhost:8000 for requests.
+
 ## CoAP Server
 
 ```
