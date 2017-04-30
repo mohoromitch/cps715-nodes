@@ -36,7 +36,15 @@ public class HTTPClient implements Node {
 
 	public HTTPClient(String[] args) {
 		this.ratePerSecond = Integer.parseInt(args[RATE_INDEX]);
-		this.url = args[URL_INDEX];
+		this.url = this.preparedURL(args[URL_INDEX]);
+	}
+
+	private String preparedURL(String url) {
+		if(!url.startsWith("http://")) {
+			return "http://" + url;
+		} else {
+			return url;
+		}
 	}
 
 	/**
