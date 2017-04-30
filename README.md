@@ -7,10 +7,10 @@ Repository to hold the HTTP and CoAP dummy nodes that send and receive test requ
 ## HTTP Client
 
 ```
-java -jar node.jar http 5 2 10.0.0.1 node1.net/status
+java -jar node.jar http 10 localhost:8000/test
 ```
 
-This will run 5 node that sends 2 GET requests to the IP of the proxy requesting the URI node1.net/status.
+This will create an HTTP node that sends 10 requests a second to localhost on port 8000 for the resource `/test`.
 When the proxy receives the request, it forwards the repackaged request to the IP of the node mapped to that URI.
 
 So, when the proxy receives node1.net/status, it reads node1.net which is mapped to a CoAP node, then sends the /status request in that CoAP request.

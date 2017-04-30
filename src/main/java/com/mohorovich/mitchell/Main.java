@@ -1,7 +1,6 @@
 package com.mohorovich.mitchell;
 
 import com.mohorovich.mitchell.node.*;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -27,9 +26,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		logger.traceEntry();
+		Node node;
 		try {
 			logger.trace("Creating node from arguments");
-			createNodeFrom(args);
+			node = createNodeFrom(args);
+			node.start();
 		} catch (Exception e) {
 			logger.error("Node could not be made. Error thrown.");
 			e.printStackTrace();
@@ -38,11 +39,15 @@ public class Main {
 	}
 
 	private static Node createNodeFrom(String[] args) throws Exception {
+		if(args.length == 0) {
+			logger.error("No mode flag provided.");
+			throw new Exception("No mode flag provided");
+		}
 		String mode = args[0].toLowerCase();
 		switch (mode) {
 			case HTTP_MODE:
 				logger.trace("HTTP mode passed.");
-				break;
+				return new HTTPClient(args);
 			case COAP_MODE:
 				logger.trace("CoAP mode passed.");
 				break;
