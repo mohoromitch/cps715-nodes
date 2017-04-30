@@ -26,8 +26,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class HTTPClient implements Node {
 
-	private final int RATE_INDEX = 1;
-	private final int URL_INDEX = 2;
+	private final int RATE_INDEX = 2;
+	private final int URL_INDEX = 3;
 
 	private static final Logger logger = LogManager.getLogger(HTTPClient.class);
 
@@ -54,7 +54,7 @@ public class HTTPClient implements Node {
 	public void start() {
 		final ExecutorService es = Executors.newCachedThreadPool();
 		ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-		ses.scheduleAtFixedRate(() -> es.submit(() -> sendRequest()), 0, 1000/this.ratePerSecond, TimeUnit.MILLISECONDS);
+		ses.scheduleAtFixedRate(() -> es.submit(this::sendRequest), 0, 1000/this.ratePerSecond, TimeUnit.MILLISECONDS);
 	}
 
 	/**
