@@ -4,7 +4,7 @@ import com.mohorovich.mitchell.node.*;
 import com.mohorovich.mitchell.node.endpoints.CoAPClient;
 import com.mohorovich.mitchell.node.endpoints.CoAPServer;
 import com.mohorovich.mitchell.node.endpoints.HTTPClient;
-import com.mohorovich.mitchell.node.proxy.SingleThreadedHTTPCoAPProxy;
+import com.mohorovich.mitchell.node.proxy.ProxyFactory;
 import com.sun.istack.internal.NotNull;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -65,7 +65,7 @@ public class Main {
 				return (mode.equals(CLIENT_MODE)) ? new CoAPClient(args) : new CoAPServer(args);
 			case PROXY_MODE:
 				logger.trace("Proxy mode passed");
-				return new SingleThreadedHTTPCoAPProxy();
+				return ProxyFactory.getHTTPCoAPProxy(mode);
 			default:
 				throw new Exception("No such recognized mode: " + protocol);
 		}
