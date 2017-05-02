@@ -19,10 +19,8 @@ public class SingleThreadedHTTPServer extends HTTPServer {
 
 	SingleThreadProxy parentProxy;
 
-	int port;
-
 	SingleThreadedHTTPServer(int port, SingleThreadProxy parent) {
-		this.port = port;
+		super(port);
 		this.parentProxy = parent;
 	}
 

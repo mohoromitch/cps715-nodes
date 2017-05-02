@@ -19,4 +19,5 @@ abstract class Proxy {
 		this.httpPort = httpPort;
 		this.coApPort = coApPort;
 	}
+
 }
