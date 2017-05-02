@@ -20,6 +20,7 @@ public class Main {
 
 	private final static String HTTP_MODE = "http";
 	private final static String COAP_MODE = "coap";
+	private final static String PROXY_MODE = "proxy";
 	private final static String SERVER_MODE = "server";
 	private final static String CLIENT_MODE = "client";
 	private static final Logger logger = LogManager.getLogger(Main.class);
@@ -60,6 +61,9 @@ public class Main {
 			case COAP_MODE:
 				logger.trace("CoAP protocol passed");
 				return (mode.equals(CLIENT_MODE)) ? new CoAPClient(args) : new CoAPServer(args);
+			case PROXY_MODE:
+				logger.trace("Proxy mode passed");
+				return new SingleThreadedHTTPCoAPProxy();
 			default:
 				throw new Exception("No such recognized mode: " + protocol);
 		}
