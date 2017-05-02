@@ -5,7 +5,6 @@ import com.mohorovich.mitchell.node.endpoints.CoAPClient;
 import com.mohorovich.mitchell.node.endpoints.CoAPServer;
 import com.mohorovich.mitchell.node.endpoints.HTTPClient;
 import com.mohorovich.mitchell.node.proxy.ProxyFactory;
-import com.sun.istack.internal.NotNull;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -48,7 +47,6 @@ public class Main {
 	 * @return A Node corresponding to the given arguments.
 	 * @throws Exception If the arguments passed in are invalid.
 	 */
-	@NotNull
 	private static Node createNodeFrom(String[] args) throws Exception {
 		if(args.length <= 1) {
 			logger.error("Protocol and mode flags required.");
