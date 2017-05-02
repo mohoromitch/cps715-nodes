@@ -1,20 +1,17 @@
 package com.mohorovich.mitchell.node.proxy;
 
 import com.mohorovich.mitchell.node.Node;
-import com.mohorovich.mitchell.node.utility.HTTPCoAPConverter;
-import com.mohorovich.mitchell.node.utility.ProxyResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.net.Socket;
 
 /**
  * Created by mitchellmohorovich on 2017-05-01.
  */
-public class SingleThreadedHTTPCoAPProxy implements Node {
+public class SingleThreadedProxy implements Node {
 
-	private static final Logger logger = LogManager.getLogger(SingleThreadedHTTPCoAPProxy.class);
+	private static final Logger logger = LogManager.getLogger(SingleThreadedProxy.class);
 	private static final int DEFAULT_HTTP_SERVER_PORT = 8000;
 	private static final int DEFAULT_COAP_CLIENT_PORT = 5683;
 
@@ -22,11 +19,11 @@ public class SingleThreadedHTTPCoAPProxy implements Node {
 	private int coApPort;
 	private SingleThreadedHTTPServer singleThreadedHTTPServer;
 
-	public SingleThreadedHTTPCoAPProxy() {
+	public SingleThreadedProxy() {
 		this(DEFAULT_HTTP_SERVER_PORT, DEFAULT_COAP_CLIENT_PORT);
 	}
 
-	private SingleThreadedHTTPCoAPProxy(int httpPort, int coApPort) {
+	private SingleThreadedProxy(int httpPort, int coApPort) {
 		this.httpPort = httpPort;
 		this.coApPort = coApPort;
 		this.singleThreadedHTTPServer = new SingleThreadedHTTPServer(this.httpPort, this);
