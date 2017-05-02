@@ -31,7 +31,7 @@ public class SingleThreadedCoAPClient extends CoapClient {
 		logger.trace(String.format("Created SingleThreadedCoAPClient pointed to %s", url));
 	}
 
-	public CoapResponse sendRequestAndGetResponse() {
+	CoapResponse sendRequestAndGetResponse() {
 		CoapResponse coapResponse;
 		logger.trace(String.format("Sent request to %s...", this.url));
 		coapResponse = this.get();
