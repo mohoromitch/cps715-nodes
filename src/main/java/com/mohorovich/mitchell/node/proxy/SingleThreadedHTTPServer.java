@@ -9,9 +9,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * A baseline, super simple single threaded HTTP server.
+ * A baseline, super simple single threaded HTTP threadedHTTPServer.
  * Has a loop that listens at the socket, the thread then blocks when it awaits the response
- * from the proxy -> CoAP client module -> CoAP node server -> CoAP client module -> proxy -> HTTP server
+ * from the proxy -> CoAP client module -> CoAP node threadedHTTPServer -> CoAP client module -> proxy -> HTTP threadedHTTPServer
  */
 public class SingleThreadedHTTPServer extends HTTPServer {
 

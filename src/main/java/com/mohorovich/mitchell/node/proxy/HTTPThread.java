@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * A HTTP thread that is used in the concurrent implementations of the HTTP server
+ * A HTTP thread that is used in the concurrent implementations of the HTTP threadedHTTPServer
  * for use in the concurrent implementations of the HTTP/CoAP proxy.
  */
 public class HTTPThread implements Runnable {

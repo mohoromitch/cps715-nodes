@@ -39,11 +39,11 @@ public class SingleThreadProxy extends Proxy implements Node{
 	}
 
 	/**
-	 * When the HTTP server receives a request, it forwards it to the proxy.
+	 * When the HTTP threadedHTTPServer receives a request, it forwards it to the proxy.
 	 * The proxy then:
-	 * - Forwards the request to the CoAP server (Californium)
+	 * - Forwards the request to the CoAP threadedHTTPServer (Californium)
 	 * 	- (For this implementation we're just using one CoAP client for feasibility)
-	 * - Gets the response from the CoAP server
+	 * - Gets the response from the CoAP threadedHTTPServer
 	 * - Writes the body of the response back to the HTTP request
 	 * @param client
 	 */

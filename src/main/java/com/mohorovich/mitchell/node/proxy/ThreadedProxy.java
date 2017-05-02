@@ -9,7 +9,7 @@ import java.net.Socket;
 /**
  * Created by mitchellmohorovich on 2017-05-02.
  */
-public class ThreadedProxy extends Proxy implements Node {
+public class ThreadedProxy extends Proxy implements Node, ConcurrentProxy {
 
 	private static final Logger logger = LogManager.getLogger(SingleCoAPClient.class);
 	ThreadedHTTPServer threadedHTTPServer;
@@ -24,10 +24,10 @@ public class ThreadedProxy extends Proxy implements Node {
 		this.threadedHTTPServer.listen();
 	}
 
-	public void handleSocket(Socket client) {
+	@Override
+	public void handleRequestAsynchronously(Socket client) {
 		Runnable requestHandler = new HTTPThread(client, threadedHTTPServer);
 		Thread thread = new Thread(requestHandler);
 		thread.start();
 	}
-
 }
