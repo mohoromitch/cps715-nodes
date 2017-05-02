@@ -1,34 +1,30 @@
 package com.mohorovich.mitchell.node.proxy;
 
-import com.mohorovich.mitchell.node.Node;
-
 import com.mohorovich.mitchell.node.utility.CoAPUtility;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.eclipse.californium.core.CoapClient;
 import org.eclipse.californium.core.CoapResponse;
 
-import javax.xml.bind.annotation.XmlType;
-
 /**
  * Created by mitchellmohorovich on 2017-05-01.
  */
-public class SingleThreadedCoAPClient extends CoapClient {
+class SingleCoAPClient extends CoapClient {
 
 	private String url;
 	private static final String DEFAULT_URL = "localhost:5683";
 
-	private static final Logger logger = LogManager.getLogger(SingleThreadedCoAPClient.class);
+	private static final Logger logger = LogManager.getLogger(SingleCoAPClient.class);
 
-	SingleThreadedCoAPClient() {
+	SingleCoAPClient() {
 		this(DEFAULT_URL);
 	}
 
-	SingleThreadedCoAPClient(String url) {
+	SingleCoAPClient(String url) {
 		super(CoAPUtility.formattedURL(url));
 		this.url = CoAPUtility.formattedURL(url);
 		this.useNONs();
-		logger.trace(String.format("Created SingleThreadedCoAPClient pointed to %s", url));
+		logger.trace(String.format("Created SingleCoAPClient pointed to %s", url));
 	}
 
 	CoapResponse sendRequestAndGetResponse() {
