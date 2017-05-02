@@ -12,17 +12,20 @@ import java.net.Socket;
 public class ThreadedProxy extends Proxy implements Node {
 
 	private static final Logger logger = LogManager.getLogger(SingleCoAPClient.class);
+	ThreadedHTTPServer threadedHTTPServer;
 
 	ThreadedProxy() {
 		super();
+		this.threadedHTTPServer = new ThreadedHTTPServer(this.httpPort, this);
 	}
 
 	@Override
 	public void start() {
+		this.threadedHTTPServer.listen();
 	}
 
 	public void handleSocket(Socket client) {
-		Runnable requestHandler = new HTTPThread(client);
+		Runnable requestHandler = new HTTPThread(client, threadedHTTPServer);
 		Thread thread = new Thread(requestHandler);
 		thread.start();
 	}
