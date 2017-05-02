@@ -17,7 +17,6 @@ public class HelloResource extends CoapResource {
 		super(name);
 	}
 	public void handleGET(CoapExchange exchange) {
-		System.out.println("test");
 		logger.trace("Received GET...");
 		exchange.respond("hello world");
 	}
