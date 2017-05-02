@@ -76,6 +76,6 @@ public class HTTPClient implements Node {
 			logger.error(String.format("Failed to make connection to: %s", this.url));
 			return;
 		}
-		logger.trace(String.format("Successful request sent to %s in %d%n ns", this.url, connectionTime));
+		logger.trace(String.format("Successful request sent to %s in %d ns", this.url, connectionTime));
 	}
 }
