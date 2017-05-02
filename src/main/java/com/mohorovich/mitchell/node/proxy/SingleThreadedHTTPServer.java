@@ -33,14 +33,17 @@ public class SingleThreadedHTTPServer extends HTTPServer {
 			for(;;) {
 				Socket client = serverSocket.accept();
 				byte[] payload = this.parentProxy.forwardRequest(client); //send request to proxy to handle.
+				logger.trace("Writing response...");
 				PrintWriter printWriter = new PrintWriter(client.getOutputStream());
 				printWriter.print("HTTP/1.1 200\r\n");
 				printWriter.print("Content-Type: text/plain\r\n");
 				printWriter.print("Connection: close\r\n");
 				printWriter.print("\r\n");
 				printWriter.write(new String(payload));
+				printWriter.write("\n\n");
 				printWriter.close();
 				client.close();
+				logger.trace("Client connection closed.");
 			}
 		} catch (IOException e) {
 			logger.error("Could not open ServerSocket.");

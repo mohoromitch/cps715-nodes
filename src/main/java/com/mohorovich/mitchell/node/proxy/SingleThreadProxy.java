@@ -24,6 +24,7 @@ public class SingleThreadProxy extends Proxy implements Node{
 
 	public SingleThreadProxy() {
 		super();
+		this.singleThreadedHTTPServer = new SingleThreadedHTTPServer(this.httpPort, this);
 	}
 
 	private SingleThreadProxy(int httpPort, int coApPort) {
