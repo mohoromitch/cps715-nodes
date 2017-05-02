@@ -1,14 +1,12 @@
 package com.mohorovich.mitchell.node.proxy;
 
 import com.mohorovich.mitchell.node.Node;
+import com.mohorovich.mitchell.node.utility.HTTPCoAPConverter;
+import com.mohorovich.mitchell.node.utility.ProxyResource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
@@ -17,51 +15,40 @@ import java.net.Socket;
 public class SingleThreadedHTTPCoAPProxy implements Node {
 
 	private static final Logger logger = LogManager.getLogger(SingleThreadedHTTPCoAPProxy.class);
-	private static final int DEFAULT_PORT = 8000;
+	private static final int DEFAULT_HTTP_SERVER_PORT = 8000;
+	private static final int DEFAULT_COAP_CLIENT_PORT = 5683;
 
-	int port;
+	private int httpPort;
+	private int coApPort;
+	private SingleThreadedHTTPServer singleThreadedHTTPServer;
 
 	public SingleThreadedHTTPCoAPProxy() {
-		this.port = DEFAULT_PORT;
-		logger.trace(String.format("Created proxy listening on port %d", this.port));
+		this(DEFAULT_HTTP_SERVER_PORT, DEFAULT_COAP_CLIENT_PORT);
 	}
 
-	public SingleThreadedHTTPCoAPProxy(int port) {
-		this.port = port;
-		logger.trace(String.format("Created proxy listening on port %d", this.port));
+	private SingleThreadedHTTPCoAPProxy(int httpPort, int coApPort) {
+		this.httpPort = httpPort;
+		this.coApPort = coApPort;
+		this.singleThreadedHTTPServer = new SingleThreadedHTTPServer(this.httpPort, this);
+		logger.trace(String.format("Created Single Threaded HTTP/CoAP Proxy listening on httpPort %d", this.httpPort));
 	}
 
 	@Override
 	public void start() {
-		logger.trace("Starting Single Threaded HTTP CoAP Proxy...");
-		try {
-			ServerSocket serverSocket = new ServerSocket(this.port);
-			logger.trace("Created socket, listening...");
-			for(;;) {
-				Socket client = serverSocket.accept();
-				BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-				PrintWriter printWriter = new PrintWriter(client.getOutputStream());
+		this.singleThreadedHTTPServer.start();
+	}
 
-				printWriter.print("HTTP/1.1 200 \r\n");
-				printWriter.print("Content-Type: text/plain\r\n");
-				printWriter.print("Connection: close\r\n");
-				printWriter.print("\r\n");
-
-				//echo the request
-				String line;
-				while( (line = bufferedReader.readLine()) != null) {
-					if(line.length() == 0) {
-						break;
-					}
-					printWriter.print(line + "\r\n");
-				}
-				logger.trace(String.format("Successfully responded to: %s %s", client.getInetAddress(), client.getPort()));
-				printWriter.close();
-				bufferedReader.close();
-				client.close();
-			}
-		} catch (IOException e) {
-			logger.error("Could not open ServerSocket.");
-		}
+	/**
+	 * When the HTTP server receives a request, it forwards it to the proxy.
+	 * The proxy then:
+	 * - Forwards the request to the CoAP server (Californium)
+	 * 	- (For this implementation we're just using one CoAP client for feasibility)
+	 * - Gets the response from the CoAP server
+	 * - Writes the body of the response back to the HTTP request
+	 * @param client
+	 */
+	byte[] forwardRequest(Socket client) {
+		SingleThreadedCoAPClient singleThreadedCoAPClient = new SingleThreadedCoAPClient();
+		return singleThreadedCoAPClient.sendRequestAndGetResponse().getPayload();
 	}
 }

@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
@@ -64,16 +65,19 @@ public class HTTPClient implements Node {
 	 */
 	private void sendRequest() {
 		URL url;
+		InputStream is;
 		long connectionTime = 0;
 		try {
 			url = new URL(this.url);
 			long startTime = System.nanoTime();
-			url.openStream();
+			is = url.openStream();
 			connectionTime = System.nanoTime() - startTime;
+			is.close();
 		} catch (MalformedURLException e) {
 			logger.error("Malformed URL: " + this.url);
 			return;
 		} catch (IOException e) {
+			e.printStackTrace();
 			logger.error(String.format("Failed to make connection to: %s", this.url));
 			return;
 		}

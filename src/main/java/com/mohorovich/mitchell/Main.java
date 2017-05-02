@@ -36,7 +36,7 @@ public class Main {
 			node = createNodeFrom(args);
 			node.start();
 		} catch (Exception e) {
-			logger.error("Node could not be made. Error thrown.");
+			logger.error("Node threw exception, exiting...");
 			e.printStackTrace();
 			System.exit(1);
 		}

@@ -1,6 +1,7 @@
 package com.mohorovich.mitchell.node.endpoints;
 
 import com.mohorovich.mitchell.node.Node;
+import com.mohorovich.mitchell.node.utility.CoAPUtility;
 import org.eclipse.californium.core.CoapClient;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -25,22 +26,11 @@ public class CoAPClient extends CoapClient implements Node {
 	private String url;
 
 	public CoAPClient(String[] args) {
-		super(formattedURL(args[URL_INDEX]));
-		this.url = formattedURL(args[URL_INDEX]);
+		super(CoAPUtility.formattedURL(args[URL_INDEX]));
+		this.url = CoAPUtility.formattedURL(args[URL_INDEX]);
 		this.useNONs();
 		logger.trace("CoAPClient using NON's.");
 		this.rate = Integer.parseInt(args[RATE_INDEX]);
-	}
-
-	private static String formattedURL(String url) {
-		logger.trace("Formatting CoAP url");
-		if(url.startsWith("coap://")) {
-			logger.trace(String.format("%s begins with coap://", url));
-			return url;
-		} else {
-			logger.trace(String.format("%s is being prepended with coap://", url));
-			return "coap://" + url;
-		}
 	}
 
 	@Override
