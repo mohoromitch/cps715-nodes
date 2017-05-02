@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -77,10 +78,9 @@ public class HTTPClient implements Node {
 			logger.error("Malformed URL: " + this.url);
 			return;
 		} catch (IOException e) {
-			e.printStackTrace();
 			logger.error(String.format("Failed to make connection to: %s", this.url));
 			return;
 		}
-		logger.trace(String.format("Successful request sent to %s in %d ns", this.url, connectionTime));
+		logger.info(String.format("Successful request sent to %s in %d ns", this.url, connectionTime));
 	}
 }
