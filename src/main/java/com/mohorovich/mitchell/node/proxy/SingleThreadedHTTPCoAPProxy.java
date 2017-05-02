@@ -1,5 +1,6 @@
-package com.mohorovich.mitchell.node;
+package com.mohorovich.mitchell.node.proxy;
 
+import com.mohorovich.mitchell.node.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

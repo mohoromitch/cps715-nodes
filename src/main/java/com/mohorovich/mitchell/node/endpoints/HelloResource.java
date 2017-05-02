@@ -1,4 +1,4 @@
-package com.mohorovich.mitchell.node;
+package com.mohorovich.mitchell.node.endpoints;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;

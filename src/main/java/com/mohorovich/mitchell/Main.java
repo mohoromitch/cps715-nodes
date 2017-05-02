@@ -1,11 +1,13 @@
 package com.mohorovich.mitchell;
 
 import com.mohorovich.mitchell.node.*;
+import com.mohorovich.mitchell.node.endpoints.CoAPClient;
+import com.mohorovich.mitchell.node.endpoints.CoAPServer;
+import com.mohorovich.mitchell.node.endpoints.HTTPClient;
+import com.mohorovich.mitchell.node.proxy.SingleThreadedHTTPCoAPProxy;
 import com.sun.istack.internal.NotNull;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
-import java.util.Objects;
 
 /**
  *

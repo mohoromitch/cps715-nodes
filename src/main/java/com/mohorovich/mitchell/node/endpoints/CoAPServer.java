@@ -1,5 +1,6 @@
-package com.mohorovich.mitchell.node;
+package com.mohorovich.mitchell.node.endpoints;
 
+import com.mohorovich.mitchell.node.Node;
 import org.eclipse.californium.core.CoapServer;
 
 /**
